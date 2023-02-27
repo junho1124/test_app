@@ -5,10 +5,10 @@ import 'package:test_app/utils/logger.dart';
 
 import 'presentation/view/login_page/login_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Log.init();
-  HiveService.init();
+  await HiveService.init();
   runApp(const MyApp());
 }
 

@@ -17,7 +17,10 @@ class UserAuthRepository {
       await _userAuthBox.putTokens(response.tokens);
       return Result.success(response.user);
     } on DioError catch (e) {
-      Log.e(e.message);
+      Log.e(e.response!.data["message"]);
+      return Result.error(e.response!.data["message"]);
+    } catch (e) {
+      Log.d(e);
       return Result.error(e);
     }
   }

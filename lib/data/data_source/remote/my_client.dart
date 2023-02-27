@@ -7,7 +7,7 @@ import '../../model/auth_token.dart';
 
 part 'my_client.g.dart';
 
-@RestApi()
+@RestApi(baseUrl: "http://test.us-all.co.kr/v1")
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
@@ -24,5 +24,5 @@ abstract class RestClient {
 }
 
 class MyClient {
-  final client = RestClient(Dio(), baseUrl: "http://test.us-all.co.kr/v1");
+  final client = RestClient(Dio(BaseOptions(receiveDataWhenStatusError: true)), baseUrl: "http://test.us-all.co.kr/v1");
 }
