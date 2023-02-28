@@ -56,6 +56,7 @@ class LoginPage extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(border: InputBorder.none, hintText: hint),
+        obscureText: hint == "password",
       ),
     );
   }

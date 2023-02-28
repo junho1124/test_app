@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_app/domain/login_input.dart';
+import 'package:test_app/domain/entities/login_input.dart';
+import 'package:test_app/presentation/view/bottom_nav_page/bottom_nav_page.dart';
 import 'package:test_app/utils/dialogs.dart';
 import 'package:test_app/utils/logger.dart';
 
@@ -10,6 +11,13 @@ import '../../data/repository/user_auth_repository.dart';
 class LoginViewModel extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void onInit() {
+    emailController.text = "john@gmail.com";
+    passwordController.text = "qwer1234";
+    super.onInit();
+  }
 
   final _userAuthRepository = UserAuthRepository();
 
@@ -21,6 +29,7 @@ class LoginViewModel extends GetxController {
         email: emailController.text, password: passwordController.text));
     result.when(success: (user) {
       Log.d(user);
+      Get.offAll(const BottomNavPage());
     }, error: (e) {
       simpleDialog(title: "로그인 실패", contents: Text(e.toString()));
     });
