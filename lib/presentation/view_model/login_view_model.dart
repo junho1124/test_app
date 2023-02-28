@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_app/domain/entities/login_input.dart';
-import 'package:test_app/presentation/view/bottom_nav_page/bottom_nav_page.dart';
+import 'package:test_app/presentation/view/main_page/main_page.dart';
 import 'package:test_app/utils/dialogs.dart';
 import 'package:test_app/utils/logger.dart';
 
@@ -29,7 +29,7 @@ class LoginViewModel extends GetxController {
         email: emailController.text, password: passwordController.text));
     result.when(success: (user) {
       Log.d(user);
-      Get.offAll(const BottomNavPage());
+      Get.offAll(const MainPage());
     }, error: (e) {
       simpleDialog(title: "로그인 실패", contents: Text(e.toString()));
     });
