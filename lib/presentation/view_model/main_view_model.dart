@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:test_app/data/model/body.dart';
 import 'package:test_app/data/repository/item_repository.dart';
 import 'package:test_app/presentation/view/contens_page/contents_page.dart';
+import 'package:test_app/presentation/view/video_page/video_page.dart';
 import 'package:test_app/utils/dialogs.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:test_app/utils/logger.dart';
@@ -10,6 +12,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../../data/model/item.dart';
+import '../view/audio_page/audio_page.dart';
 
 class MainViewModel extends GetxController {
   final _itemRepository = ItemRepository();
@@ -56,7 +59,20 @@ class MainViewModel extends GetxController {
   }
 
   void goDetail(Item item) {
-    Log.d(item.body.url);
+    switch(item.body.type) {
+      case Type.Link:
+        _goContents(item);
+        break;
+      case Type.VOD:
+        Get.toNamed(VideoPage.path, arguments: item);
+        break;
+      case Type.Audio:
+        Get.toNamed(AudioPage.path, arguments: item);
+        break;
+    }
+  }
+
+  void _goContents(Item item) {
     PlatformWebViewControllerCreationParams params;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
       params = WebKitWebViewControllerCreationParams(

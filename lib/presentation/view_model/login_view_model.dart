@@ -22,7 +22,8 @@ class LoginViewModel extends GetxController {
   final _userAuthRepository = UserAuthRepository();
 
   Future login() async {
-    if(!emailController.text.isNotEmpty || !passwordController.text.isNotEmpty) {
+    if (!emailController.text.isNotEmpty ||
+        !passwordController.text.isNotEmpty) {
       simpleDialog(title: "로그인 에러", contents: Text("로그인 정보를 입력 해 주세요"));
     }
     final result = await _userAuthRepository.login(LoginInput(
@@ -33,5 +34,6 @@ class LoginViewModel extends GetxController {
     }, error: (e) {
       simpleDialog(title: "로그인 실패", contents: Text(e.toString()));
     });
+    Get.offAllNamed(MainPage.path);
   }
 }

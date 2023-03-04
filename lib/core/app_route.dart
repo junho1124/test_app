@@ -8,13 +8,11 @@ import 'package:test_app/presentation/view/video_page/video_page.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../data/model/item.dart';
-import '../domain/util/page_history.dart';
 import '../utils/logger.dart';
 
 class AppRoutes {
   static Route<dynamic>? onGenerateRoutes(RouteSettings settings) {
     Log.d(settings.name);
-    PageHistory.addHistory(settings);
     switch (settings.name) {
       case LoginPage.path:
         return _getRoute(const LoginPage(), settings.name);
@@ -27,7 +25,8 @@ class AppRoutes {
         final Item item = settings.arguments as Item;
         return _getRoute(VideoPage(item: item), settings.name);
       case AudioPage.path:
-        return _getRoute(const AudioPage(), settings.name);
+        final Item item = settings.arguments as Item;
+        return _getRoute(AudioPage(item: item), settings.name);
       default:
         return _getRoute(const MainPage(), settings.name);
     }
