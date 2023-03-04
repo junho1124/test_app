@@ -6,6 +6,7 @@ import 'package:test_app/presentation/widget/bottom_nav_bar.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
+  static const path = "/MainPage";
 
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,7 @@ import '../../data/model/item.dart';
 class MainViewModel extends GetxController {
   final _itemRepository = ItemRepository();
   final scrollController = ScrollController();
-  late final webViewController;
+  WebViewController? webViewController;
 
   RxMap<Item, List<String>> items = <Item, List<String>>{}.obs;
   RxBool isLoaded = false.obs;
@@ -66,7 +66,7 @@ class MainViewModel extends GetxController {
       params = WebKitWebViewControllerCreationParams();
     }
     webViewController = WebViewController.fromPlatformCreationParams(params);
-    webViewController
+    webViewController!
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(Color(0x00000000))
       ..setNavigationDelegate(
@@ -77,7 +77,7 @@ class MainViewModel extends GetxController {
         return NavigationDecision.navigate;
       }))
       ..loadRequest(Uri.parse(item.body.url));
-    Get.to(ContentsPage(controller: webViewController));
+    Get.toNamed(ContentsPage.path, arguments: webViewController);
   }
 
   Future<List<List<String>>> readHtml(List<String> urls) async {

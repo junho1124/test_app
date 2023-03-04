@@ -15,7 +15,6 @@ class ItemRepository {
 
   Future<Result<PageInfo>> getItems([int? page]) async {
     try {
-      Log.d("page :: $page");
       final response = await _api.getItems(
           page: page ?? 1, accessToken: _authTokenBox.getAccessToken());
       return Result.success(response);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:navigation_history_observer/navigation_history_observer.dart';
+import 'package:test_app/core/app_route.dart';
 import 'package:test_app/utils/hive_service.dart';
 import 'package:test_app/utils/logger.dart';
-
-import 'presentation/view/login_page/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +23,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      initialRoute: "/",
+      onGenerateRoute: (settings) => AppRoutes.onGenerateRoutes(settings),
+      navigatorObservers: [
+        NavigationHistoryObserver(),
+      ],
     );
   }
 }
-

@@ -7,6 +7,7 @@ class ContentsPage extends StatelessWidget {
     Key? key,
     required this.controller,
   }) : super(key: key);
+  static const String path = "/ContentsPage";
 
   final WebViewController controller;
 

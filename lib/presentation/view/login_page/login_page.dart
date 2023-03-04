@@ -4,6 +4,7 @@ import 'package:test_app/presentation/view_model/login_view_model.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
+  static const String path = "/";
 
   @override
   Widget build(BuildContext context) {

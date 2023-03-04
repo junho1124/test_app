@@ -4,6 +4,7 @@ import 'package:test_app/presentation/view_model/audio_view_model.dart';
 
 class AudioPage extends StatelessWidget {
   const AudioPage({Key? key}) : super(key: key);
+  static const String path = "/AudioPage";
 
   @override
   Widget build(BuildContext context) {

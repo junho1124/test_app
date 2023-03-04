@@ -5,8 +5,8 @@ import '../../../data/model/item.dart';
 import '../../view_model/video_view_model.dart';
 
 class VideoPage extends StatelessWidget {
-  const VideoPage({Key? key
-  ,required this.item}) : super(key: key);
+  const VideoPage({Key? key, required this.item}) : super(key: key);
+  static const String path = "/VideoPage";
 
   final Item item;
 
@@ -22,13 +22,10 @@ class VideoPage extends StatelessWidget {
             ),
             body: Container(
               child: Column(
-                children: [
-                  Text("video")
-                ],
+                children: [Text("video")],
               ),
             ),
           );
-        }
-    );
+        });
   }
 }

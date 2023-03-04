@@ -29,7 +29,7 @@ class LoginViewModel extends GetxController {
         email: emailController.text, password: passwordController.text));
     result.when(success: (user) {
       Log.d(user);
-      Get.offAll(const MainPage());
+      Get.offAllNamed(MainPage.path);
     }, error: (e) {
       simpleDialog(title: "로그인 실패", contents: Text(e.toString()));
     });
