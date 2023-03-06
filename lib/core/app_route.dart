@@ -5,34 +5,29 @@ import 'package:test_app/presentation/view/contens_page/contents_page.dart';
 import 'package:test_app/presentation/view/login_page/login_page.dart';
 import 'package:test_app/presentation/view/main_page/main_page.dart';
 import 'package:test_app/presentation/view/video_page/video_page.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-
-import '../data/model/item.dart';
-import '../utils/logger.dart';
 
 class AppRoutes {
   static Route<dynamic>? onGenerateRoutes(RouteSettings settings) {
-    Log.d(settings.name);
     switch (settings.name) {
       case LoginPage.path:
-        return _getRoute(const LoginPage(), settings.name);
+        return _getRoute(const LoginPage(), settings);
       case MainPage.path:
-        return _getRoute(const MainPage(), settings.name);
+        return _getRoute(const MainPage(), settings);
       case ContentsPage.path:
-        final WebViewController controller = settings.arguments as WebViewController;
-        return _getRoute(ContentsPage(controller: controller), settings.name);
+        final String url = settings.arguments as String;
+        return _getRoute(ContentsPage(url: url), settings);
       case VideoPage.path:
-        final Item item = settings.arguments as Item;
-        return _getRoute(VideoPage(item: item), settings.name);
+        final String url = settings.arguments as String;
+        return _getRoute(VideoPage(url: url), settings);
       case AudioPage.path:
-        final Item item = settings.arguments as Item;
-        return _getRoute(AudioPage(item: item), settings.name);
+        final String url = settings.arguments as String;
+        return _getRoute(AudioPage(url: url), settings);
       default:
-        return _getRoute(const MainPage(), settings.name);
+        return _getRoute(const MainPage(), settings);
     }
   }
 
-  static Route<dynamic>? _getRoute(Widget view, String? routeName) {
-    return GetPageRoute(page: () => view, routeName: routeName);
+  static Route<dynamic>? _getRoute(Widget view, RouteSettings settings) {
+    return GetPageRoute(page: () => view, settings: settings);
   }
 }

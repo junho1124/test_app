@@ -8,8 +8,6 @@ import 'package:test_app/presentation/view/video_page/video_page.dart';
 import 'package:test_app/utils/dialogs.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:test_app/utils/logger.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../../data/model/item.dart';
 import '../view/audio_page/audio_page.dart';
@@ -17,7 +15,6 @@ import '../view/audio_page/audio_page.dart';
 class MainViewModel extends GetxController {
   final _itemRepository = ItemRepository();
   final scrollController = ScrollController();
-  WebViewController? webViewController;
 
   RxMap<Item, List<String>> items = <Item, List<String>>{}.obs;
   RxBool isLoaded = false.obs;
@@ -59,41 +56,18 @@ class MainViewModel extends GetxController {
   }
 
   void goDetail(Item item) {
-    switch(item.body.type) {
+    Log.d(Get.routeTree.routes.length);
+    switch (item.body.type) {
       case Type.Link:
-        _goContents(item);
+        Get.toNamed(ContentsPage.path, arguments: item.body.url);
         break;
       case Type.VOD:
-        Get.toNamed(VideoPage.path, arguments: item);
+        Get.toNamed(VideoPage.path, arguments: item.body.url);
         break;
       case Type.Audio:
-        Get.toNamed(AudioPage.path, arguments: item);
+        Get.toNamed(AudioPage.path, arguments: item.body.url);
         break;
     }
-  }
-
-  void _goContents(Item item) {
-    PlatformWebViewControllerCreationParams params;
-    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
-      params = WebKitWebViewControllerCreationParams(
-          allowsInlineMediaPlayback: true,
-          mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{});
-    } else {
-      params = WebKitWebViewControllerCreationParams();
-    }
-    webViewController = WebViewController.fromPlatformCreationParams(params);
-    webViewController!
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(Color(0x00000000))
-      ..setNavigationDelegate(
-          NavigationDelegate(onNavigationRequest: (request) {
-        if (request.url.startsWith(item.body.url)) {
-          return NavigationDecision.prevent;
-        }
-        return NavigationDecision.navigate;
-      }))
-      ..loadRequest(Uri.parse(item.body.url));
-    Get.toNamed(ContentsPage.path, arguments: webViewController);
   }
 
   Future<List<List<String>>> readHtml(List<String> urls) async {

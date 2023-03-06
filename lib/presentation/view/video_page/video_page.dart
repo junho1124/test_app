@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/model/item.dart';
 import '../../view_model/video_view_model.dart';
 
 class VideoPage extends StatelessWidget {
-  const VideoPage({Key? key, required this.item}) : super(key: key);
+  const VideoPage({Key? key, required this.url}) : super(key: key);
   static const String path = "/VideoPage";
 
-  final Item item;
+  final String url;
 
   @override
   Widget build(BuildContext context) {

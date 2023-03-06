@@ -8,11 +8,16 @@ class BottomNavViewModel extends GetxController {
 
   RxBool get canGoNext => _history.canGoNext;
 
-
+  @override
+  void onInit() {
+    _history.addRouteListener();
+    super.onInit();
+  }
+  
   void changePage(int index) {
     if (index == 0 && canPop.isTrue) {
       _history.goPrevious();
-    } else if(index == 1 && canGoNext.isTrue) {
+    } else if (index == 1 && canGoNext.isTrue) {
       _history.goNext();
     }
   }

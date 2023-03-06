@@ -34,6 +34,5 @@ class LoginViewModel extends GetxController {
     }, error: (e) {
       simpleDialog(title: "로그인 실패", contents: Text(e.toString()));
     });
-    Get.offAllNamed(MainPage.path);
   }
 }

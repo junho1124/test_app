@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       onGenerateRoute: (settings) => AppRoutes.onGenerateRoutes(settings),
+      navigatorKey: Get.key,
       navigatorObservers: [
         NavigationHistoryObserver(),
       ],

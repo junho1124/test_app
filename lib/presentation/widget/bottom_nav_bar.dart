@@ -12,26 +12,38 @@ class BottomNavBar extends StatelessWidget {
     return GetBuilder<BottomNavViewModel>(
         init: BottomNavViewModel(),
         builder: (vm) {
-          return BottomNavigationBar(
-              onTap: (index) => vm.changePage(index),
-              items: [
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: vm.canPop.isTrue
-                          ? context.theme.primaryColor
-                          : context.theme.disabledColor,
-                    ),
-                    label: "Previous"),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.arrow_forward_ios,
-                      color: vm.canGoNext.isTrue
-                          ? context.theme.primaryColor
-                          : context.theme.disabledColor,
-                    ),
-                    label: "Next")
-              ]);
+          return Container(
+              decoration: const BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Colors.black38,
+                  offset: Offset(-2, 0),
+                  blurRadius: 1,
+                )
+              ], color: Colors.white),
+              height: 60,
+              child: Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        onTap: () => vm.changePage(0),
+                        child: Icon(
+                          Icons.arrow_back_ios_new,
+                          color: vm.canPop.isTrue
+                              ? context.theme.primaryColor
+                              : context.theme.disabledColor,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () => vm.changePage(1),
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          color: vm.canGoNext.isTrue
+                              ? context.theme.primaryColor
+                              : context.theme.disabledColor,
+                        ),
+                      ),
+                    ],
+                  )));
         });
   }
 }
